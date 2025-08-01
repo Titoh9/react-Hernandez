@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import CartWidget from './CartWidget';
 import logo from '../assets/logo.png';
 
@@ -5,13 +6,15 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#"><img src={logo} alt="NeoStore Logo" className="navbar-logo" style={{ width: '90px', height: '90px' }} /></a>
-        
-        <div className="collapse navbar-collapse d-flex justify-content-between">
-          <div className="navbar-nav d-flex flex-row gap-4">
-            <a className="nav-link active text-white" href="#">Inicio</a>
-            <a className="nav-link text-white" href="#">Productos</a>
-            <a className="nav-link text-white" href="#">Contacto</a>
+        <Link className="navbar-brand" to="/">
+          <img src={logo} alt="NeoStore Logo" style={{ width: '70px', height: '70px' }} />
+        </Link>
+
+        <div className="d-flex justify-content-between w-100">
+          <div className="navbar-nav d-flex flex-row gap-3">
+            <Link className="nav-link text-white" to="/">Inicio</Link>
+            <Link className="nav-link text-white" to="/category/tech">Productos</Link>
+            <Link className="nav-link text-white" to="/contacto">Contacto</Link>
           </div>
 
           <CartWidget />
