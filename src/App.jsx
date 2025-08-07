@@ -7,31 +7,11 @@ function App() {
   return (
     <>
       <NavBar />
-
       <Routes>
-        {/* Catálogo completo */}
-        <Route
-          path="/"
-          element={<ItemListContainer greeting="¡Bienvenido a la tienda!" />}
-        />
-
-        {/* Catálogo filtrado por categoría */}
-        <Route
-          path="/category/:categoryId"
-          element={<ItemListContainer />}
-        />
-
-        {        /* Detalle de producto */}
-        <Route
-          path="/item/:productId"
-          element={<ItemDetailContainer />}
-        />
-
-        {/* Página 404 */}
-        <Route
-          path="*"
-          element={<h2 className="text-center mt-5">404 - Página no encontrada</h2>}
-        />
+        <Route path="/" element={<ItemListContainer greeting="¡Bienvenido!" />} />
+        <Route path="/category/:categoryId" element={<ItemListContainer />} />
+        <Route path="/item/:productId" element={<ItemDetailContainer />} />
+        <Route path="*" element={<h2>Página no encontrada</h2>} />
       </Routes>
     </>
   );
