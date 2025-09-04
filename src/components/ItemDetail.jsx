@@ -1,22 +1,33 @@
-import ItemCount from './ItemCount';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext.jsx";
+import ItemCount from "./ItemCount.jsx";
 
-const ItemDetail = ({ item }) => {
-  const handleAdd = (quantity) => {
-    console.log(`Agregaste ${quantity} unidad(es) de ${item.name}`);
+export default function ItemDetail({ product }) {
+  const { addItem } = useCart();
+  const [addedQty, setAddedQty] = useState(0);
+  const stock = product?.stock ?? 99; // luego tomará el real desde Firestore
+
+  const handleAdd = (qty) => {
+    addItem(product, qty);
+    setAddedQty(qty);
   };
 
-  return (
-    <div className="card mb-4">
-      <img src={item.image} className="card-img-top" alt={item.name} />
-      <div className="card-body">
-        <h3 className="card-title">{item.name}</h3>
-        <p className="card-text">Precio: ${item.price}</p>
-        <p className="card-text">Categoría: {item.category}</p>
+  if (!product) return <p>Cargando...</p>;
+  if (stock === 0) return <p>Producto sin stock</p>;
 
-        <ItemCount stock={10} initial={1} onAdd={handleAdd} />
-      </div>
+  return (
+    <div>
+      <h2>{product.name}</h2>
+      {/* resto del detalle */}
+      {addedQty > 0 ? (
+        <div style={{ display: "flex", gap: 8 }}>
+          <Link to="/cart">Ir al carrito</Link>
+          <Link to="/">Seguir comprando</Link>
+        </div>
+      ) : (
+        <ItemCount stock={stock} initial={1} onAdd={handleAdd} />
+      )}
     </div>
   );
-};
-
-export default ItemDetail;
+}

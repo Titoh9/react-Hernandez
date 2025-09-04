@@ -1,28 +1,23 @@
-import { Link } from 'react-router-dom';
-import CartWidget from './CartWidget';
-import logo from '../assets/logo.png';
+import { NavLink, Link } from "react-router-dom";
+import CartWidget from "./CartWidget";
+import logo from "../assets/logo.png";
 
-const NavBar = () => {
+export default function NavBar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 w-100">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
-          <img src={logo} alt="NeoStore Logo" style={{ width: '70px', height: '70px' }} />
-        </Link>
+    <header className="navbar">
+      <Link to="/" className="brand">
+        <img src={logo} alt="NEOSTORE" />
+        <span>NEOSTORE</span>
+      </Link>
 
-        <div className="d-flex justify-content-between w-100">
-          <div className="navbar-nav d-flex flex-row gap-3">
-            <Link className="nav-link text-white" to="/">Inicio</Link>
-            <Link className="nav-link text-white" to="/category/tech">Tecnología</Link>
-            <Link className="nav-link text-white" to="/category/home">Hogar</Link>
-            <Link className="nav-link text-white" to="/contacto">Contacto</Link>
-          </div>
+      <nav className="navlinks">
+        <NavLink to="/" end>Inicio</NavLink>
+        <NavLink to="/category/tecnologia">Tecnología</NavLink>
+        <NavLink to="/category/hogar">Hogar</NavLink>
+        <NavLink to="/contacto">Contacto</NavLink>
+      </nav>
 
-          <CartWidget />
-        </div>
-      </div>
-    </nav>
+      <CartWidget />
+    </header>
   );
-};
-
-export default NavBar;
+}

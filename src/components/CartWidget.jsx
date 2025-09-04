@@ -1,12 +1,12 @@
-const CartWidget = () => {
-  const itemsInCart = 3;
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext.jsx";
 
+export default function CartWidget() {
+  const { totalItems } = useCart();
   return (
-    <div className="d-flex align-items-center text-white">
-      <i className="bi bi-cart-fill"></i>
-      <span className="ms-2">{itemsInCart}</span>
-    </div>
+    <Link to="/cart" className="cart-widget">
+      <img src="/cart.svg" alt="Carrito" width="24" height="24" />
+      {totalItems > 0 && <span className="badge">{totalItems}</span>}
+    </Link>
   );
-};
-
-export default CartWidget;
+}

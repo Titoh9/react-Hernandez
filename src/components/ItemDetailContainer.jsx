@@ -1,32 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getProductById } from '../data/products';
-import ItemDetail from './ItemDetail';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getProductById } from "../services/products.js";
 
-const ItemDetailContainer = () => {
-  const { productId } = useParams();
-  const [item, setItem] = useState(null);
-  const [loading, setLoading] = useState(true);
+export default function ItemDetailContainer() {
+  const { itemId } = useParams();
+  const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    getProductById(productId).then((data) => {
-      setItem(data);
-      setLoading(false);
-    });
-  }, [productId]);
+    getProductById(itemId).then(setProduct).catch(console.error);
+  }, [itemId]);
 
-  return (
-    <div className="container mt-4">
-      {loading ? (
-        <p>Cargando producto...</p>
-      ) : item ? (
-        <ItemDetail item={item} />
-      ) : (
-        <p>Producto no encontrado.</p>
-      )}
-    </div>
-  );
-};
-
-export default ItemDetailContainer;
+  if (!product) return <p>Cargando...</p>;
+  // ...render detalle
+}
